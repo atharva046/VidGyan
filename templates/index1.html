@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== GOOGLE FONTS ===============-->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <title>VIDGYAN - Video Generation</title>
+
+    <!-- <style>
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Section Styles */
+        .hero-section {
+            background: url('assets/images/hero-bg.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: rgb(15, 1, 1);
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color:#327ccc
+        }
+
+        .hero-section .btn {
+            padding: 0.8rem 2rem;
+            background-color: #007bff;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-section .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .feature-section {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 5rem 2rem;
+            background-color: #f8f9fa;
+        }
+
+        .feature-section .feature-card {
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            width: 250px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-section .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-section .feature-card i {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .feature-section .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-section .feature-card p {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('homy.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Keeps the background fixed while scrolling */
+            min-height: 100vh;
+            
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for content */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        /* Additional styling for form, video, etc. */
+        
+
+
+    </style> -->
+
+
+
+
+
+
+</head>
+<body>
+    <!--=============== HEADER ===============-->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="{{ url_for('index') }}" class="nav__logo">
+                    VIDज्ञान
+                </a>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line nav__toggle-menu"></i>
+                    <i class="ri-close-line nav__toggle-close"></i>
+                </div>
+            </div>
+
+            <!--=============== NAV MENU ===============-->
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li>
+                        <a href="{{ url_for('index') }}" class="nav__link">Home</a>
+                    </li>
+
+                    <!--=============== DROPDOWN 1 ===============-->
+                    <li class="dropdown__item">                      
+                        <div class="nav__link dropdown__button">
+                            Discover <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                        </div>
+                        <!-- Dropdown Content -->
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <div class="dropdown__group">
+                                    <span class="dropdown__title">Explore</span>
+                                    <ul class="dropdown__list">
+                                        <li><a href="#" class="dropdown__link">New Features</a></li>
+                                        <li><a href="#" class="dropdown__link">Tutorials</a></li>
+                                        <li><a href="#" class="dropdown__link">How It Works</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!--=============== DROPDOWN 2 ===============-->
+                    <li class="dropdown__item">
+                        <div class="nav__link dropdown__button">
+                            Resources <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                        </div>
+                        <!-- Dropdown Content -->
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <div class="dropdown__group">
+                                    <span class="dropdown__title">Resources</span>
+                                    <ul class="dropdown__list">
+                                        <li><a href="#" class="dropdown__link">Docs</a></li>
+                                        <li><a href="#" class="dropdown__link">API</a></li>
+                                        <li><a href="#" class="dropdown__link">Community</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#" class="nav__link">Pricing</a>
+                    </li>
+
+                    <!--=============== DROPDOWN 3 ===============-->
+                    <li class="dropdown__item">                        
+                        <div class="nav__link dropdown__button">
+                            Company <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                        </div>
+                        <!-- Dropdown Content -->
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <div class="dropdown__group">
+                                    <div class="dropdown__icon">
+                                        <i class="ri-community-line"></i>
+                                    </div>
+                                    <span class="dropdown__title">About Us</span>
+                                    <ul class="dropdown__list">
+                                        <li><a href="#" class="dropdown__link">About Us</a></li>
+                                        <li><a href="#" class="dropdown__link">Support</a></li>
+                                        <li><a href="#" class="dropdown__link">Contact Us</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav__actions">
+                <a href="{{ url_for('login') }}" class="nav__button">Login</a>
+                <a href="{{ url_for('signup') }}" class="nav__button nav__button--signup">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!--=============== HERO SECTION ===============-->
+    <section class="hero-section fade-in">
+        <div>
+            <h1>Transform Your Ideas into Stunning Videos</h1>
+            <p><b>With VIDGYAN, create professional videos in minutes using our intuitive video generation tools.</b></p>
+            <a href="{{ url_for('dashboard') }}" class="btn">Get Started</a>
+        </div>
+    </section>
+
+    <!--=============== FEATURES SECTION ===============-->
+    <section class="feature-section fade-in">
+        <div class="feature-card">
+            <i class="ri-video-line"></i>
+            <h3>Concept Learning</h3>
+        </div>
+        <div class="feature-card">
+            <i class="ri-music-line"></i>
+            <h3>Real Life Examples</h3>
+        </div>
+        <div class="feature-card">
+            <i class="ri-settings-2-line"></i>
+            <h3>Difficulty Settings</h3>
+        </div>
+    </section>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

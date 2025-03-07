@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Video Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .difficulty-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .difficulty-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #1557b0;
+        }
+        .error {
+            color: red;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ffebee;
+            border-radius: 4px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .section-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a73e8;
+        }
+        video {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .content {
+            margin-top: 30px;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        #progressBar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        #progressBarFill {
+            width: 0%;
+            height: 100%;
+            background-color: #1a73e8;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 30px;">Educational Video Generator</h1>
+        
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="post">
+            <div class="form-group">
+                <label for="topic">Enter Topic:</label>
+                <input type="text" id="topic" name="topic" required 
+                       placeholder="e.g., Machine Learning, Physics, Mathematics">
+            </div>
+            <div class="form-group">
+                <label for="difficulty">Difficulty Level:</label>
+                <input type="range" id="difficulty" name="difficulty" 
+                       min="0" max="1" step="0.1" value="0.5" 
+                       class="difficulty-slider">
+                <div class="difficulty-labels">
+                    <span>Easy</span>
+                    <span>Hard</span>
+                </div>
+            </div>
+            <button type="submit" onclick="showLoading()">Generate Content</button>
+        </form>
+
+        <div class="loading" id="loadingIndicator">
+            <p>Generating content... This may take a few minutes.</p>
+            <div id="progressBar">
+                <div id="progressBarFill"></div>
+            </div>
+        </div>
+
+        {% if video_url %}
+        <div class="content">
+            <h2>Generated Video:</h2>
+            <video controls>
+                <source src="{{ video_url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        {% endif %}
+
+        {% if grouped_script %}
+        <div class="content">
+            <h2>Generated Content:</h2>
+            {% for section_title, paragraphs in formatted_sections %}
+            <div class="section">
+                {% for paragraph in paragraphs %}
+                <p>{{ paragraph }}</p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loadingIndicator').style.display = 'block';
+            simulateProgress();
+        }
+
+        function simulateProgress() {
+            let progress = 0;
+            const progressBar = document.getElementById('progressBarFill');
+            const interval = setInterval(() => {
+                if (progress >= 90) {
+                    clearInterval(interval);
+                } else {
+                    progress += Math.random() * 2;
+                    progressBar.style.width = Math.min(progress, 90) + '%';
+                }
+            }, 1000);
+        }
+
+        // Hide loading indicator if there's an error or result
+        {% if error or video_url %}
+            document.getElementById('loadingIndicator').style.display = 'none';
+        {% endif %}
+    </script>
+</body>
+</html>
